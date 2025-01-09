@@ -547,17 +547,17 @@ void device_set_texture(device_t *device, void *bits, long pitch, int w,
 
 // 清空 framebuffer 和 zbuffer
 void device_clear(device_t *device, int mode) {
-  int y, x, height = device->height; // 高度
+  int y, x, height = device->height;  // 高度
   for (y = 0; y < device->height; y++) {
     IUINT32 *dst = device->framebuffer[y];
-    IUINT32 cc = (height - 1 - y) * 230 / (height - 1); // 背景颜色
-    cc = (cc << 16) | (cc << 8) | cc; // 背景颜色
-    if (mode == 0) cc = device->background; // 背景颜色
-    for (x = device->width; x > 0; dst++, x--) dst[0] = cc; // 清空framebuffer
+    IUINT32 cc = (height - 1 - y) * 230 / (height - 1);      // 背景颜色
+    cc = (cc << 16) | (cc << 8) | cc;                        // 背景颜色
+    if (mode == 0) cc = device->background;                  // 背景颜色
+    for (x = device->width; x > 0; dst++, x--) dst[0] = cc;  // 清空framebuffer
   }
   for (y = 0; y < device->height; y++) {
     float *dst = device->zbuffer[y];
-    for (x = device->width; x > 0; dst++, x--) dst[0] = 0.0f; // 清空zbuffer
+    for (x = device->width; x > 0; dst++, x--) dst[0] = 0.0f;  // 清空zbuffer
   }
 }
 
@@ -618,13 +618,13 @@ void device_draw_line(device_t *device, int x1, int y1, int x2, int y2,
 IUINT32
 device_texture_read(const device_t *device, float u, float v) {
   int x, y;
-  u = u * device->max_u; // 纹理坐标
-  v = v * device->max_v; // 纹理坐标
+  u = u * device->max_u;  // 纹理坐标
+  v = v * device->max_v;  // 纹理坐标
   x = (int)(u + 0.5f);
   y = (int)(v + 0.5f);
-  x = CMID(x, 0, device->tex_width - 1); // 纹理坐标
-  y = CMID(y, 0, device->tex_height - 1); // 纹理坐标
-  return device->texture[y][x]; // 返回纹理颜色
+  x = CMID(x, 0, device->tex_width - 1);   // 纹理坐标
+  y = CMID(y, 0, device->tex_height - 1);  // 纹理坐标
+  return device->texture[y][x];            // 返回纹理颜色
 }
 
 //=====================================================================
@@ -728,8 +728,8 @@ void device_draw_primitive(device_t *device, const vertex_t *v1,
     // 拆分三角形为0-2个梯形，并且返回可用梯形数量
     n = trapezoid_init_triangle(traps, &t1, &t2, &t3);
 
-    if (n >= 1) device_render_trap(device, &traps[0]); // 绘制梯形
-    if (n >= 2) device_render_trap(device, &traps[1]); // 绘制梯形
+    if (n >= 1) device_render_trap(device, &traps[0]);  // 绘制梯形
+    if (n >= 2) device_render_trap(device, &traps[1]);  // 绘制梯形
   }
 
   if (render_state & RENDER_STATE_WIREFRAME) {  // 线框绘制
@@ -812,7 +812,7 @@ int screen_init(int w, int h, const TCHAR *title) {
   screen_fb = (unsigned char *)ptr;
   screen_w = w;
   screen_h = h;
-  screen_pitch = w * 4; // 每行像素数
+  screen_pitch = w * 4;  // 每行像素数
 
   AdjustWindowRect(&rect, GetWindowLong(screen_handle, GWL_STYLE), 0);
   wx = rect.right - rect.left;
@@ -874,9 +874,9 @@ static LRESULT screen_events(HWND hWnd, UINT msg, WPARAM wParam,
 void screen_dispatch(void) {
   MSG msg;
   while (1) {
-    if (!PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)) break; // 检查消息
-    if (!GetMessage(&msg, NULL, 0, 0)) break; // 获取消息
-    DispatchMessage(&msg); // 分发消息  
+    if (!PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)) break;  // 检查消息
+    if (!GetMessage(&msg, NULL, 0, 0)) break;                // 获取消息
+    DispatchMessage(&msg);                                   // 分发消息
   }
 }
 
@@ -906,8 +906,8 @@ void draw_plane(device_t *device, int a, int b, int c, int d) {
   vertex_t p1 = mesh[a], p2 = mesh[b], p3 = mesh[c], p4 = mesh[d];
   p1.tc.u = 0, p1.tc.v = 0, p2.tc.u = 0, p2.tc.v = 1;
   p3.tc.u = 1, p3.tc.v = 1, p4.tc.u = 1, p4.tc.v = 0;
-  device_draw_primitive(device, &p1, &p2, &p3); // 绘制三角形
-  device_draw_primitive(device, &p3, &p4, &p1); // 绘制三角形
+  device_draw_primitive(device, &p1, &p2, &p3);  // 绘制三角形
+  device_draw_primitive(device, &p3, &p4, &p1);  // 绘制三角形
 }
 
 void draw_box(device_t *device, float theta) {
@@ -915,7 +915,7 @@ void draw_box(device_t *device, float theta) {
   matrix_set_rotate(&m, -1, -0.5, 1, theta);
   device->transform.world = m;
   transform_update(&device->transform);
-  draw_plane(device, 0, 1, 2, 3); // 绘制平面
+  draw_plane(device, 0, 1, 2, 3);  // 绘制平面
   draw_plane(device, 7, 6, 5, 4);
   draw_plane(device, 0, 4, 5, 1);
   draw_plane(device, 1, 5, 6, 2);
@@ -931,15 +931,15 @@ void camera_at_zero(device_t *device, float x, float y, float z) {
 
 // 初始化纹理
 void init_texture(device_t *device) {
-  static IUINT32 texture[256][256]; // 纹理
+  static IUINT32 texture[256][256];  // 纹理
   int i, j;
-  for (j = 0; j < 256; j++) { // 纹理高度
-    for (i = 0; i < 256; i++) { // 纹理宽度
-      int x = i / 32, y = j / 32; // 纹理坐标
+  for (j = 0; j < 256; j++) {      // 纹理高度
+    for (i = 0; i < 256; i++) {    // 纹理宽度
+      int x = i / 32, y = j / 32;  // 纹理坐标
       texture[j][i] = ((x + y) & 1) ? 0xffffff : 0x3fbcef;
     }
   }
-  device_set_texture(device, texture, 256 * 4, 256, 256); // 设置纹理
+  device_set_texture(device, texture, 256 * 4, 256, 256);  // 设置纹理
 }
 
 int main(void) {

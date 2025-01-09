@@ -1,8 +1,6 @@
 # 一个学习和测试c++的仓库
 
-## 测试OpenGL
-
-目录：test_opengl
+## test_opengl
 
 书籍推荐：**《3D数学基础：图形与游戏开发》** **《3D游戏编程大师技巧》上下册**
 
@@ -36,3 +34,11 @@
 1. 将package中的x86_64-14.2.0-release-win32-seh-ucrt-rt_v12-rev0.7z解压
 2. 将路径添加到环境变量中
 3. 执行make编译出来 test_opengl.exe
+
+## mini_3d
+
+这是skywind3000的测试项目
+
+地址：https://github.com/skywind3000/mini3d
+
+编译：gcc -O3 mini3d.c -o mini3d.exe -lgdi32

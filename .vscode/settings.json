@@ -61,5 +61,6 @@
         "format": "cpp",
         "sstream": "cpp"
     },
-    "C_Cpp.clang_format_fallbackStyle": "GNU"
+    "C_Cpp.clang_format_fallbackStyle": "GNU",
+    "C_Cpp.clang_format_style": "Google"
 }

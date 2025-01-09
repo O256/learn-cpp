@@ -56,7 +56,10 @@
         "stop_token": "cpp",
         "streambuf": "cpp",
         "thread": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "optional": "cpp",
+        "format": "cpp",
+        "sstream": "cpp"
     },
     "C_Cpp.clang_format_fallbackStyle": "GNU"
 }

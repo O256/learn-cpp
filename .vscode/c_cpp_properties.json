@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/test_opengl/deps/glfw/include",
+                "${workspaceFolder}/test_opengl/deps/glad/include",
+                "${workspaceFolder}/test_opengl/deps",
+                "${workspaceFolder}/test_opengl/include",
+                "${workspaceFolder}/test_opengl/src"
+            ],
+            "defines": [],
+            "compilerPath": "E:/Tools/mingw64/bin/g++.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+} 
